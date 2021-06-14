@@ -6,9 +6,9 @@ import (
 	"time"
 )
 
-func (pg *postgres) GetByID(ID int64) (Channel, bool, string, error) {
-	channel := Channel{}
-	err := pg.Conn.QueryRow("SELECT id,name,creationDate,description,avatar,creatorID FROM channel WHERE id=?", ID).Scan(
+func (pg *postgres) GetByID(ID int64) (channel Channel, isExist bool, errStr string, err error) {
+	channel = Channel{}
+	err = pg.Conn.QueryRow("SELECT id,name,creationDate,description,avatar,creatorID FROM channel WHERE id=?", ID).Scan(
 		&channel.ID,
 		&channel.Name,
 		&channel.CreationDate,
