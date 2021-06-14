@@ -2,8 +2,10 @@ package videoType
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"regexp"
 	"youtube/pkg/validate"
 )
 
@@ -30,9 +32,12 @@ func (r *UploadVideoRequest) DecodeValidate(ctx *fiber.Ctx) (string, int, error)
 			return "07", 400, err
 		case "Description,max":
 			return "08", 400, err
-		case "Duration,gt":
-			return "09", 400, err
 		}
 	}
+
+	if !regexp.MustCompile("^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9]:?[0-5][0-9]+$))").MatchString(r.Duration) {
+		return "09", 400, errors.New("invalid duration")
+	}
+
 	return "", 200, nil
 }

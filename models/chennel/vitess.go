@@ -8,7 +8,7 @@ import (
 
 func (pg *postgres) GetByID(ID int64) (channel Channel, isExist bool, errStr string, err error) {
 	channel = Channel{}
-	err = pg.Conn.QueryRow("SELECT id,name,creationDate,description,avatar,creatorID FROM channel WHERE id=$1", ID).Scan(
+	err = pg.Conn.QueryRow("SELECT id,name,creation_date,description,avatar,creator_id FROM channel WHERE id=$1", ID).Scan(
 		&channel.ID,
 		&channel.Name,
 		&channel.CreationDate,

@@ -5,15 +5,11 @@ import (
 	"time"
 )
 
-func (pg *postgres) Insert(storage Storage) (int64, string, error) {
-	result, err := pg.Conn.Exec("INSERT INTO storage (path) VALUE ($1)", storage.Path)
+func (pg *postgres) Insert(storage Storage) (insertedID int64, errStr string, err error) {
+	err = pg.Conn.QueryRow("INSERT INTO storage (path) VALUES ($1) RETURNING id", storage.Path).Scan(&insertedID)
 	if err != nil {
 		zap.L().Error("insert_storage_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
 		return 0, "01", err
 	}
-	id, err := result.LastInsertId()
-	if err != nil {
-		return 0, "02", err
-	}
-	return id, "", nil
+	return insertedID, "", nil
 }

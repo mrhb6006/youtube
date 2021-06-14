@@ -5,7 +5,7 @@ type Video struct {
 	Title       string
 	Description string
 	UploadDate  string
-	Duration    int64
+	Duration    string
 	Thumbnail   string
 	StorageID   int64
 }
