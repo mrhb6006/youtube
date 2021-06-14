@@ -9,6 +9,7 @@ type UploadVideoRequest struct {
 	Video       string `json:"video" validate:"required"`
 }
 
+// test commit
 type UploadVideoResponse struct {
 	ID int64 `json:"id"`
 }
