@@ -19,4 +19,6 @@ func init() {
 
 type Repository interface {
 	GetByID(ID int64) (Channel, bool, string, error)
+	GetByName(name string) (channel Channel, isExist bool, errStr string, err error)
+	CreateChannel(channel Channel) (id int64, errStr string, err error)
 }
