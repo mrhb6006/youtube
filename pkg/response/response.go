@@ -8,8 +8,8 @@ import (
 	"youtube/pkg/errorHandler"
 )
 
-func ErrorResponse(ctx *fiber.Ctx, res commonType.Response, baseErrorCode, SectionNo, errNum string, code int) error {
-	errCode := baseErrorCode + SectionNo + errNum
+func ErrorResponse(ctx *fiber.Ctx, res commonType.Response, baseErrorCode, SectionNo, errStr string, code int) error {
+	errCode := baseErrorCode + SectionNo + errStr
 	res.Err = errorHandler.CreateError(ctx, errCode, code)
 	if code > 200 {
 		return res.Err

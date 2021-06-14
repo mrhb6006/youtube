@@ -1,4 +1,4 @@
-package storage
+package storageHandler
 
 import (
 	"encoding/base64"

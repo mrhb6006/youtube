@@ -6,5 +6,9 @@ type UploadVideoRequest struct {
 	Description string `json:"description" validate:"max=256"`
 	Duration    int64  `json:"duration" validate:"required,gt=0"`
 	Thumbnail   string `json:"thumbnail" validate:"required"`
-	VideoBase64 string `json:"video_base64" validate:"required"`
+	Video       string `json:"video" validate:"required"`
+}
+
+type UploadVideoResponse struct {
+	ID int64 `json:"id"`
 }
