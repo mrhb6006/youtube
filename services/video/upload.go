@@ -1,13 +1,12 @@
 package video
 
 import (
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap"
 	"strconv"
 	"time"
-	"youtube/api/commonType"
-	"youtube/api/videoType"
+	"youtube/apiType/commonType"
+	"youtube/apiType/videoType"
 	channelVideoRepo "youtube/models/channelVideo"
 	channelRepo "youtube/models/chennel"
 	"youtube/models/storage"
@@ -33,6 +32,7 @@ func Upload(ctx *fiber.Ctx) error {
 	if !found {
 		return response.ErrorResponse(ctx, res, baseErrCode, "03", "01", 200)
 	}
+
 	//todo check user access to upload
 
 	thumbnailPath, err := storageHandler.SaveImage(request.Thumbnail, "t"+strconv.FormatInt(time.Now().UnixNano(), 10))
@@ -56,7 +56,6 @@ func Upload(ctx *fiber.Ctx) error {
 	videoId, errStr, err := video.Repo.Insert(video.Video{
 		Title:       request.Title,
 		Description: request.Description,
-		UploadDate:  fmt.Sprintf("%x", time.Now()),
 		Duration:    request.Duration,
 		Thumbnail:   thumbnailPath,
 		StorageID:   storageID,

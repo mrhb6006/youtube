@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
 	"strconv"
-	"youtube/api/commonType"
+	"youtube/apiType/commonType"
 )
 
 func DefaultErrHandler(ctx *fiber.Ctx, err error) error {

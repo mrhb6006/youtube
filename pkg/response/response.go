@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/zap"
-	"youtube/api/commonType"
+	"youtube/apiType/commonType"
 	"youtube/pkg/errorHandler"
 )
 
