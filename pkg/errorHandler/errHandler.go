@@ -3,13 +3,11 @@ package errorHandler
 import (
 	"encoding/json"
 	"github.com/gofiber/fiber/v2"
-	"go.uber.org/zap"
 	"strconv"
 	"youtube/api/commonType"
 )
 
 func DefaultErrHandler(ctx *fiber.Ctx, err error) error {
-	zap.L().Error("panic error", zap.Error(err))
 	code := "0000000"
 	if e, ok := err.(commonType.Error); ok {
 		code = e["code"]

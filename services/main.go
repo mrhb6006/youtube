@@ -22,7 +22,3 @@ func main() {
 		panic(err)
 	}
 }
-
-func setUpRoute(app *fiber.App) {
-	//youtube := app.Group("/youtube")
-}

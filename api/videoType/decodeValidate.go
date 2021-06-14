@@ -2,37 +2,42 @@ package videoType
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"regexp"
 	"youtube/pkg/validate"
 )
 
-func (r *UploadVideoRequest) DecodeValidate(ctx *fiber.Ctx) (int, string, error) {
+func (r *UploadVideoRequest) DecodeValidate(ctx *fiber.Ctx) (string, int, error) {
 	err := json.Unmarshal(ctx.Body(), r)
 	if err != nil {
-		return 400, "01", err
+		return "01", 400, err
 	}
 	err = validate.Struct(r)
 	if err != nil {
 		customError := err.(validator.ValidationErrors)
 		switch customError[0].StructField() + "," + customError[0].ActualTag() {
 		case "ChannelID,required":
-			return 400, "02", err
+			return "02", 400, err
 		case "Title,required":
-			return 400, "03", err
+			return "03", 400, err
 		case "Duration,required":
-			return 400, "04", err
+			return "04", 400, err
 		case "Thumbnail,required":
-			return 400, "05", err
-		case "VideoBase64,required":
-			return 400, "06", err
+			return "05", 400, err
+		case "Video,required":
+			return "06", 400, err
 		case "ChannelID,gt":
-			return 400, "07", err
+			return "07", 400, err
 		case "Description,max":
-			return 400, "08", err
-		case "Duration,gt":
-			return 400, "09", err
+			return "08", 400, err
 		}
 	}
-	return 200, "", nil
+
+	if !regexp.MustCompile("^(((([0-1][0-9])|(2[0-3])):?[0-5][0-9]:?[0-5][0-9]+$))").MatchString(r.Duration) {
+		return "09", 400, errors.New("invalid duration")
+	}
+
+	return "", 200, nil
 }
