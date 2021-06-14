@@ -5,7 +5,6 @@ import (
 	"go.uber.org/zap"
 	"youtube/pkg/errorHandler"
 	"youtube/pkg/logger"
-	. "youtube/services/video"
 )
 
 func main() {
@@ -22,10 +21,4 @@ func main() {
 	if err := app.Listen(":7575"); err != nil {
 		panic(err)
 	}
-}
-
-func setUpRoute(app *fiber.App) {
-	youtube := app.Group("/youtube")
-	video := youtube.Group("/video")
-	video.Post("/upload", Upload)
 }
