@@ -6,7 +6,7 @@ import (
 )
 
 func (pg *postgres) Insert(storage Storage) (int64, string, error) {
-	result, err := pg.Conn.Exec("INSERT INTO storage (path) VALUE (?)", storage.Path)
+	result, err := pg.Conn.Exec("INSERT INTO storage (path) VALUE ($1)", storage.Path)
 	if err != nil {
 		zap.L().Error("insert_storage_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
 		return 0, "01", err
