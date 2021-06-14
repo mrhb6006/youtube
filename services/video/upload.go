@@ -8,7 +8,8 @@ import (
 	"time"
 	"youtube/api/commonType"
 	"youtube/api/videoType"
-	chennelRepo "youtube/models/chennel"
+	channelVideoRepo "youtube/models/channelVideo"
+	channelRepo "youtube/models/chennel"
 	"youtube/models/storage"
 	"youtube/models/video"
 	"youtube/pkg/response"
@@ -25,7 +26,7 @@ func Upload(ctx *fiber.Ctx) error {
 		return response.ErrorResponse(ctx, res, baseErrCode, "01", errStr, code)
 	}
 
-	_, found, errStr, err := chennelRepo.Repo.GetByID(request.ChannelID)
+	channel, found, errStr, err := channelRepo.Repo.GetByID(request.ChannelID)
 	if err != nil {
 		return response.ErrorResponse(ctx, res, baseErrCode, "02", errStr, 500)
 	}
@@ -62,6 +63,13 @@ func Upload(ctx *fiber.Ctx) error {
 	})
 	if err != nil {
 		return response.ErrorResponse(ctx, res, baseErrCode, "07", "01", 500)
+	}
+	errStr, err = channelVideoRepo.Repo.Insert(channelVideoRepo.ChannelVideo{
+		ChannelID: channel.ID,
+		VideoID:   videoId,
+	})
+	if err != nil {
+		return response.ErrorResponse(ctx, res, baseErrCode, "08", "01", 500)
 	}
 	uploadVideoResponse.ID = videoId
 	res.Res = uploadVideoResponse
