@@ -19,4 +19,5 @@ func init() {
 
 type Repository interface {
 	Insert(channelVideo ChannelVideo) (string, error)
+	ExistenceCheck(channelVideo ChannelVideo) (bool, string, error)
 }
