@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	. "youtube/services/channel"
+	. "youtube/services/channelUser"
 	. "youtube/services/channelVideo"
 	. "youtube/services/video"
 )
@@ -16,4 +17,6 @@ func setUpRoute(app *fiber.App) {
 	channel.Post("/create", Create)
 	channel.Post("/addvideo", AddVideoToChannel)
 	channel.Delete("/deletevideo", DeleteVideoFromChannel)
+	channel.Post("/join", JoinToChannel)
+	channel.Delete("/leave", LeaveChannel)
 }
