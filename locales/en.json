@@ -7,5 +7,7 @@
   "0010301": "channel not found",
   "0020401": "channel name already exist",
   "0030303": "video already exist in this channel",
-  "0040301": "video you want to delete does not exist in this channel"
+  "0040301": "video you want to delete does not exist in this channel",
+  "0050303": "user already exist in this channel",
+  "0060301": "user you want to delete does not exist in this channel"
 }
