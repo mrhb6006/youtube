@@ -6,5 +6,5 @@ type ChannelVideoRequest struct {
 }
 
 type ChannelVideoResponse struct {
-	VideoAdded bool `json:"video_added"`
+	OperationDone bool `json:"operation_done"`
 }

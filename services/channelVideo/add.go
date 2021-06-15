@@ -34,7 +34,7 @@ func AddVideoToChannel(ctx *fiber.Ctx) error {
 	if err != nil {
 		return response.ErrorResponse(ctx, res, baseErrCode, "04", errStr, 500)
 	}
-	channelVideoResponse.VideoAdded = true
+	channelVideoResponse.OperationDone = true
 	res.Res = channelVideoResponse
 	return response.SuccessResponse(ctx, res)
 }
