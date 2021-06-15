@@ -1,4 +1,4 @@
-package videoChannelType
+package channelVideoType
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 	"youtube/pkg/validate"
 )
 
-func (r VideoChannelRequest) DecodeValidate(ctx *fiber.Ctx) (errStr string, responseCode int, err error) {
+func (r *ChannelVideoRequest) DecodeValidate(ctx *fiber.Ctx) (errStr string, responseCode int, err error) {
 	err = json.Unmarshal(ctx.Body(), r)
 	if err != nil {
 		return "01", 400, err
