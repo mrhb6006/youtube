@@ -23,10 +23,19 @@ func (pg postgres) ExistenceCheck(channelVideo ChannelVideo) (exist bool, errStr
 	)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return false, "", nil
+			return false, "01", nil
 		}
 		zap.L().Error("ExistenceCheck_videoChannel_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
-		return false, "01", err
+		return false, "02", err
 	}
-	return true, "02", nil
+	return true, "03", nil
+}
+
+func (pg *postgres) Delete(channelVideo ChannelVideo) (string, error) {
+	_, err := pg.Conn.Exec("delete from channel_video where channel_id=$1 and video_id=$2", channelVideo.ChannelID, channelVideo.VideoID)
+	if err != nil {
+		zap.L().Error("delete_videoChannel_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
+		return "01", err
+	}
+	return "", nil
 }

@@ -8,8 +8,8 @@ import (
 	"youtube/pkg/response"
 )
 
-func AddVideoToChannel(ctx *fiber.Ctx) error {
-	baseErrCode := "003"
+func DeleteVideoFromChannel(ctx *fiber.Ctx) error {
+	baseErrCode := "004"
 	request := channelVideoType.ChannelVideoRequest{}
 	channelVideoResponse := channelVideoType.ChannelVideoResponse{}
 	res := commonType.Response{}
@@ -24,10 +24,10 @@ func AddVideoToChannel(ctx *fiber.Ctx) error {
 	if err != nil {
 		return response.ErrorResponse(ctx, res, baseErrCode, "02", errStr, 500)
 	}
-	if exist {
+	if !exist {
 		return response.ErrorResponse(ctx, res, baseErrCode, "03", errStr, 200)
 	}
-	errStr, err = channelVideo.Repo.Insert(channelVideo.ChannelVideo{
+	errStr, err = channelVideo.Repo.Delete(channelVideo.ChannelVideo{
 		ChannelID: request.ChannelID,
 		VideoID:   request.VideoID,
 	})
