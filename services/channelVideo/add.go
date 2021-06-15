@@ -11,7 +11,6 @@ import (
 func AddVideoToChannel(ctx *fiber.Ctx) error {
 	baseErrCode := "003"
 	request := channelVideoType.ChannelVideoRequest{}
-	channelVideoResponse := channelVideoType.ChannelVideoResponse{}
 	res := commonType.Response{}
 	errStr, code, err := request.DecodeValidate(ctx)
 	if err != nil {
@@ -34,7 +33,5 @@ func AddVideoToChannel(ctx *fiber.Ctx) error {
 	if err != nil {
 		return response.ErrorResponse(ctx, res, baseErrCode, "04", errStr, 500)
 	}
-	channelVideoResponse.OperationDone = true
-	res.Res = channelVideoResponse
 	return response.SuccessResponse(ctx, res)
 }
