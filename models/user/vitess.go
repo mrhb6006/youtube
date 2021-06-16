@@ -17,7 +17,32 @@ func (pg *postgres) Insert(user User) (insertedID int64, errStr string, err erro
 
 func (pg *postgres) GetByUserName(userName string) (user User, found bool, errStr string, err error) {
 	user = User{}
-	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM channel WHERE name=$1", userName).Scan()
+	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM channel WHERE username=$1", userName).Scan(
+		&user.ID,
+		&user.UserName,
+		&user.Email,
+		&user.EnrollDate,
+		&user.Avatar,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return user, false, "", nil
+		}
+		zap.L().Error("get_user_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
+		return user, false, "01", err
+	}
+	return user, true, "", nil
+}
+
+func (pg *postgres) GetByEmail(email string) (user User, found bool, errStr string, err error) {
+	user = User{}
+	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM channel WHERE email=$1", email).Scan(
+		&user.ID,
+		&user.UserName,
+		&user.Email,
+		&user.EnrollDate,
+		&user.Avatar,
+	)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return user, false, "", nil
