@@ -17,7 +17,7 @@ func (pg *postgres) Insert(user User) (insertedID int64, errStr string, err erro
 
 func (pg *postgres) GetByUserName(userName string) (user User, found bool, errStr string, err error) {
 	user = User{}
-	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM channel WHERE username=$1", userName).Scan(
+	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM user WHERE username=$1", userName).Scan(
 		&user.ID,
 		&user.UserName,
 		&user.Email,
@@ -36,7 +36,7 @@ func (pg *postgres) GetByUserName(userName string) (user User, found bool, errSt
 
 func (pg *postgres) GetByEmail(email string) (user User, found bool, errStr string, err error) {
 	user = User{}
-	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM channel WHERE email=$1", email).Scan(
+	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM user WHERE email=$1", email).Scan(
 		&user.ID,
 		&user.UserName,
 		&user.Email,
