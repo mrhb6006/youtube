@@ -49,3 +49,21 @@ func (user *RegisterRequest) DecodeValidate(ctx *fiber.Ctx) (string, int, error)
 	}
 	return "", 200, nil
 }
+
+func (user *LoginRequest) DecodeValidate(ctx *fiber.Ctx) (string, int, error) {
+	err := json.Unmarshal(ctx.Body(), user)
+	if err != nil {
+		return "01", 400, err
+	}
+	err = validate.Struct(user)
+	if err != nil {
+		customError := err.(validator.ValidationErrors)
+		switch customError[0].StructField() + "," + customError[0].ActualTag() {
+		case "Username,required":
+			return "02", 400, err
+		case "Password,required":
+			return "03", 400, err
+		}
+	}
+	return "", 200, nil
+}
