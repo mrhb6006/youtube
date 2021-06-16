@@ -82,7 +82,7 @@ func Register(ctx *fiber.Ctx) error {
 		} else {
 			errStr = "02"
 		}
-		return response.ErrorResponse(ctx, res, baseErrCode, "04", errStr, 500)
+		return response.ErrorResponse(ctx, res, baseErrCode, "04", errStr, 200)
 	}
 
 	byteArray := md5.Sum([]byte(request.Password))
