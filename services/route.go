@@ -26,4 +26,5 @@ func setUpRoute(app *fiber.App) {
 
 	user := youtube.Group("/user")
 	user.Post("/register", Register)
+	user.Post("/login", Login)
 }
