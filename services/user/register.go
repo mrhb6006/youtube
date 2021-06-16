@@ -51,7 +51,7 @@ func Register(ctx *fiber.Ctx) error {
 	}()
 	go func() {
 		defer wg.Done()
-		_, exist, errStr, err := user.Repo.GetByUserName(request.Username)
+		_, exist, errStr, err := user.Repo.GetByEmail(request.Email)
 		if err != nil {
 			sectionNoChan <- "03"
 			errStrChan <- errStr

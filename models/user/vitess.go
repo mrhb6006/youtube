@@ -7,7 +7,7 @@ import (
 )
 
 func (pg *postgres) Insert(user User) (insertedID int64, errStr string, err error) {
-	err = pg.Conn.QueryRow("INSERT INTO user (username,password,email,enroll_date,avatar) VALUES ($1,$2,$3,$4,$5) RETURNING id", user.UserName, user.Password, user.Email, time.Now().Format("2006-01-02"), user.Avatar).Scan(&insertedID)
+	err = pg.Conn.QueryRow("INSERT INTO video_sharing.public.\"user\" (username,password,email,enroll_date,avatar) VALUES ($1,$2,$3,$4,$5) RETURNING id", user.UserName, user.Password, user.Email, time.Now().Format("2006-01-02"), user.Avatar).Scan(&insertedID)
 	if err != nil {
 		zap.L().Error("insert_user_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
 		return 0, "01", err
@@ -17,9 +17,10 @@ func (pg *postgres) Insert(user User) (insertedID int64, errStr string, err erro
 
 func (pg *postgres) GetByUserName(userName string) (user User, found bool, errStr string, err error) {
 	user = User{}
-	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM user WHERE username=$1", userName).Scan(
+	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM video_sharing.public.\"user\" WHERE username=$1", userName).Scan(
 		&user.ID,
 		&user.UserName,
+		&user.Password,
 		&user.Email,
 		&user.EnrollDate,
 		&user.Avatar,
@@ -36,9 +37,10 @@ func (pg *postgres) GetByUserName(userName string) (user User, found bool, errSt
 
 func (pg *postgres) GetByEmail(email string) (user User, found bool, errStr string, err error) {
 	user = User{}
-	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM user WHERE email=$1", email).Scan(
+	err = pg.Conn.QueryRow("SELECT id,username,password,email,enroll_date,avatar FROM video_sharing.public.\"user\" WHERE email=$1", email).Scan(
 		&user.ID,
 		&user.UserName,
+		&user.Password,
 		&user.Email,
 		&user.EnrollDate,
 		&user.Avatar,
