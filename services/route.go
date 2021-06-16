@@ -6,6 +6,7 @@ import (
 	. "youtube/services/channel"
 	. "youtube/services/channelUser"
 	. "youtube/services/channelVideo"
+	. "youtube/services/user"
 	. "youtube/services/video"
 )
 
@@ -22,4 +23,7 @@ func setUpRoute(app *fiber.App) {
 	channel.Delete("/deletevideo", DeleteVideoFromChannel)
 	channel.Post("/join", JoinToChannel)
 	channel.Delete("/leave", LeaveChannel)
+
+	user := youtube.Group("/user")
+	user.Post("/register", Register)
 }
