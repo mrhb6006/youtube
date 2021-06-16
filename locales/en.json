@@ -9,5 +9,9 @@
   "0030303": "video already exist in this channel",
   "0040301": "video you want to delete does not exist in this channel",
   "0050303": "user already exist in this channel",
-  "0060301": "user you want to delete does not exist in this channel"
+  "0060301": "user you want to delete does not exist in this channel",
+  "1000104": "username most be longer of 5 character",
+  "1000105": "password most be longer of 8 character",
+  "1000106": "invalid email",
+  "1000107": "invalid email"
 }
