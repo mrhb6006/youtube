@@ -15,5 +15,7 @@
   "1000106": "invalid email",
   "1000107": "invalid email",
   "1000401": "this username belong to another user",
-  "1000402": "this email belong to another user"
+  "1000402": "this email belong to another user",
+  "0990301": "not found user with this username",
+  "0990401": "wrong password"
 }
