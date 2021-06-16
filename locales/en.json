@@ -13,5 +13,7 @@
   "1000104": "username most be longer of 5 character",
   "1000105": "password most be longer of 8 character",
   "1000106": "invalid email",
-  "1000107": "invalid email"
+  "1000107": "invalid email",
+  "1000401": "this username belong to another user",
+  "1000402": "this email belong to another user"
 }
