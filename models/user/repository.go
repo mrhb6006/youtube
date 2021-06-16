@@ -19,5 +19,5 @@ func init() {
 
 type Repository interface {
 	Insert(user User) (int64, string, error)
-	GetByUserName(userName string) (User, int64, string, error)
+	GetByUserName(userName string) (User, bool, string, error)
 }
