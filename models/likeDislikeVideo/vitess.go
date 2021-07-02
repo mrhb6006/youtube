@@ -36,3 +36,13 @@ func (pg *postgres) UpdateAction(like LikeVideo) (string, error) {
 	}
 	return "", nil
 }
+
+func (pg *postgres) GetVideoLikesCount(likeOrDislike int64, videoID int64) (int64, string, error) {
+	var count int64
+	err := pg.Conn.QueryRow("select count(user_id) from like_video where video_id=$1 and action=$2;", videoID, likeOrDislike).Scan(&count)
+	if err != nil {
+		zap.L().Error("update_like_video_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
+		return -1, "01", err
+	}
+	return count, "", nil
+}

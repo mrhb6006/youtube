@@ -34,8 +34,9 @@ func setUpRoute(app *fiber.App) {
 	user.Post("/login", Login)
 
 	video.Post("/seen", SeenVideo)
-	video.Get("/seen/count", CountVideoSeen)
+	video.Post("/seen/count", CountVideoSeen)
 	video.Post("/like", LikeDislikeVideo)
+	video.Post("/like/count", VideoLikesCount)
 
 	comment := youtube.Group("/comment")
 	comment.Post("/write", Write)

@@ -43,3 +43,21 @@ func LikeDislikeVideo(ctx *fiber.Ctx) error {
 	}
 	return response.SuccessResponse(ctx, res)
 }
+
+func VideoLikesCount(ctx *fiber.Ctx) error {
+	baseErrCode := "011"
+	request := likeVideoType.LikeVideoCountRequest{}
+	likeCountResponse := likeVideoType.LikeVideoCountResponse{}
+	res := commonType.Response{}
+	errStr, code, err := request.DecodeValidate(ctx)
+	if err != nil {
+		return response.ErrorResponse(ctx, res, baseErrCode, "01", errStr, code)
+	}
+	count, errStr, err := likeDislikeVideo.Repo.GetVideoLikesCount(request.Action, request.VideoID)
+	if err != nil {
+		return response.ErrorResponse(ctx, res, baseErrCode, "02", errStr, 500)
+	}
+	likeCountResponse.LikeCount = count
+	res.Res = likeCountResponse
+	return response.SuccessResponse(ctx, res)
+}
