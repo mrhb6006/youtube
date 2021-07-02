@@ -6,6 +6,7 @@ import (
 	. "youtube/services/channel"
 	. "youtube/services/channelUser"
 	. "youtube/services/channelVideo"
+	. "youtube/services/comment"
 	. "youtube/services/user"
 	. "youtube/services/video"
 )
@@ -27,4 +28,7 @@ func setUpRoute(app *fiber.App) {
 	user := youtube.Group("/user")
 	user.Post("/register", Register)
 	user.Post("/login", Login)
+
+	comment := youtube.Group("/comment")
+	comment.Post("/write", Write)
 }
