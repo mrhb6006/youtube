@@ -12,12 +12,13 @@ func JoinToChannel(ctx *fiber.Ctx) error {
 	baseErrCode := "005"
 	request := userChannelType.UserChannelRequest{}
 	res := commonType.Response{}
+	userID := ctx.Locals("UserID").(int64)
 	errStr, code, err := request.DecodeValidate(ctx)
 	if err != nil {
 		return response.ErrorResponse(ctx, res, baseErrCode, "01", errStr, code)
 	}
 	exist, errStr, err := channelUser.Repo.ExistenceCheck(channelUser.ChannelUser{
-		UserID:    1, //TODO : handle UserID
+		UserID:    userID,
 		ChannelID: request.ChannelID,
 	})
 	if err != nil {
@@ -27,7 +28,7 @@ func JoinToChannel(ctx *fiber.Ctx) error {
 		return response.ErrorResponse(ctx, res, baseErrCode, "03", errStr, 200)
 	}
 	errStr, err = channelUser.Repo.Insert(channelUser.ChannelUser{
-		UserID:    1, //TODO : handle UserID
+		UserID:    userID,
 		ChannelID: request.ChannelID,
 	})
 	if err != nil {
