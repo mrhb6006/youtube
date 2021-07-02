@@ -6,8 +6,9 @@ import (
 	. "youtube/services/channel"
 	. "youtube/services/channelUser"
 	. "youtube/services/channelVideo"
-	. "youtube/services/seenVideo"
 	. "youtube/services/comment"
+	. "youtube/services/search"
+	. "youtube/services/seenVideo"
 	. "youtube/services/user"
 	. "youtube/services/video"
 )
@@ -36,4 +37,6 @@ func setUpRoute(app *fiber.App) {
 	comment := youtube.Group("/comment")
 	comment.Post("/write", Write)
 	comment.Delete("/delete", DeleteComment)
+
+	youtube.Post("/search", Search)
 }
