@@ -35,5 +35,5 @@ func setUpRoute(app *fiber.App) {
 
 	comment := youtube.Group("/comment")
 	comment.Post("/write", Write)
-	comment.Delete("/delete")
+	comment.Delete("/delete", DeleteComment)
 }

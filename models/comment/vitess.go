@@ -1,6 +1,7 @@
 package comment
 
 import (
+	"database/sql"
 	"go.uber.org/zap"
 	"time"
 )
@@ -17,6 +18,9 @@ func (pg *postgres) Insert(comment Comment) (insertedID int64, errStr string, er
 func (pg *postgres) Delete(commentID int64) (deletedID int64, errStr string, err error) {
 	err = pg.Conn.QueryRow("UPDATE commnet SET is_deleted=true WHERE id=$1 RETURNING id", commentID).Scan(&deletedID)
 	if err != nil {
+		if err == sql.ErrNoRows {
+			return 0, "", nil
+		}
 		zap.L().Error("delete_comment_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
 		return 0, "01", err
 	}
