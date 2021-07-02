@@ -9,7 +9,10 @@ type UploadVideoRequest struct {
 	Video       string `json:"video" validate:"required"`
 }
 
-//test
 type UploadVideoResponse struct {
 	ID int64 `json:"id"`
+}
+
+type DeleteVideoRequest struct {
+	VideoID int64 `json:"video_id" validate:"required,gt=0"`
 }
