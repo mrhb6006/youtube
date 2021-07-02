@@ -7,8 +7,9 @@ import (
 	. "youtube/services/channelUser"
 	. "youtube/services/channelVideo"
 	. "youtube/services/comment"
-	. "youtube/services/search"
+	. "youtube/services/likeDislike"
 	. "youtube/services/seenVideo"
+	. "youtube/services/search"
 	. "youtube/services/user"
 	. "youtube/services/video"
 )
@@ -33,6 +34,7 @@ func setUpRoute(app *fiber.App) {
 
 	video.Post("/seen", SeenVideo)
 	video.Get("/seen/count", CountVideoSeen)
+	video.Post("/like", LikeDislikeVideo)
 
 	comment := youtube.Group("/comment")
 	comment.Post("/write", Write)
