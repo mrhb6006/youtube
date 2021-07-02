@@ -88,10 +88,13 @@ func Register(ctx *fiber.Ctx) error {
 	byteArray := md5.Sum([]byte(request.Password))
 	hashPassStr := fmt.Sprintf("%x", byteArray)
 
-	avatarPath, err := storageHandler.SaveImage(request.Avatar, "userAvatar"+strconv.FormatInt(time.Now().UnixNano(), 10))
-	if err != nil {
-		zap.L().Error("save image error", zap.Any("err:", err))
-		return response.ErrorResponse(ctx, res, baseErrCode, "05", "01", 500)
+	avatarPath := ""
+	if request.Avatar != "" {
+		avatarPath, err = storageHandler.SaveImage(request.Avatar, "userAvatar"+strconv.FormatInt(time.Now().UnixNano(), 10))
+		if err != nil {
+			zap.L().Error("save image error", zap.Any("err:", err))
+			return response.ErrorResponse(ctx, res, baseErrCode, "05", "01", 500)
+		}
 	}
 
 	id, errStr, err := user.Repo.Insert(user.User{
