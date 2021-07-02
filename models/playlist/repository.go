@@ -21,4 +21,5 @@ type Repository interface {
 	Insert(playList PlayList) (int64, string, error)
 	GetByName(name string, creatorID int64) (PlayList, bool, string, error)
 	GetByID(playListID int64) (PlayList, bool, string, error)
+	MakePublic(playListID int64) (string, error)
 }

@@ -51,4 +51,5 @@ func setUpRoute(app *fiber.App) {
 	playlist := youtube.Group("playlist")
 	playlist.Post("/create", CreatePlayList)
 	playlist.Post("/addVideo", AddVideoToPlayList)
+	playlist.Post("/makePublic", MakePublic)
 }

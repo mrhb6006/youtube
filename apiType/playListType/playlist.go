@@ -13,3 +13,7 @@ type AddVideoToPlayListRequest struct {
 	PlayListID int64 `json:"playlist_id" validate:"required"`
 	VideoID    int64 `json:"video_id" validate:"required"`
 }
+
+type MakePublicRequest struct {
+	PlayListID int64 `json:"playlist_id" validate:"required"`
+}
