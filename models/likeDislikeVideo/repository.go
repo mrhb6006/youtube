@@ -1,4 +1,4 @@
-package likeDislike
+package likeDislikeVideo
 
 import (
 	"database/sql"
@@ -19,6 +19,6 @@ func init() {
 
 type Repository interface {
 	ChechExist(userID int64, videoID int64) (bool, string, error)
-	Insert(like Like) (string, error)
-	UpdateAction(like Like) (string, error)
+	Insert(like LikeVideo) (string, error)
+	UpdateAction(like LikeVideo) (string, error)
 }
