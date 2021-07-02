@@ -17,5 +17,6 @@
   "1000401": "this username belong to another user",
   "1000402": "this email belong to another user",
   "0990301": "not found user with this username",
-  "0990401": "wrong password"
+  "0990401": "wrong password",
+  "0810303": "comment not found"
 }

@@ -9,3 +9,7 @@ type WriteCommentRequest struct {
 type WriteCommentResponse struct {
 	CommentID int64 `json:"comment_id"`
 }
+
+type DeleteCommentRequest struct {
+	CommentID int64 `json:"comment_id" validate:"required"`
+}

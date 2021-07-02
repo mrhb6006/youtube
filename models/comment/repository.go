@@ -19,4 +19,5 @@ func init() {
 
 type Repository interface {
 	Insert(comment Comment) (int64, string, error)
+	Delete(commentID int64) (int64, string, error)
 }
