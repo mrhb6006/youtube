@@ -13,3 +13,12 @@ func (pg *postgres) Insert(video Video) (insertedID int64, errStr string, err er
 	}
 	return insertedID, "", nil
 }
+
+func (pg *postgres) Delete(videoID int64) (string, error) {
+	_, err := pg.Conn.Exec("delete from video where id=$1;", videoID)
+	if err != nil {
+		zap.L().Error("delete_video_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
+		return "01", err
+	}
+	return "", nil
+}

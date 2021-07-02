@@ -19,4 +19,5 @@ func init() {
 
 type Repository interface {
 	Insert(video Video) (int64, string, error)
+	Delete(videoID int64) (string, error)
 }
