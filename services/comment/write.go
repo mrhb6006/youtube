@@ -2,9 +2,10 @@ package comment
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"strings"
 	"youtube/apiType/commentType"
 	"youtube/apiType/commonType"
-	"youtube/apiType/videoType"
+	commentRepo "youtube/models/comment"
 	"youtube/pkg/response"
 )
 
@@ -18,9 +19,19 @@ func Write(ctx *fiber.Ctx) error {
 	if err != nil {
 		return response.ErrorResponse(ctx, res, baseErrCode, "01", errStr, code)
 	}
-	if request.ReplyID == 0 {
-
-	} else {
-
+	comment := commentRepo.Comment{
+		Text:    strings.TrimSpace(request.Text),
+		ReplyID: request.ReplyID,
+		VideoID: request.VideoID,
 	}
+	if request.ReplyID != 0 { // reply a comment
+		comment.UserID = userID
+	}
+	id, errStr, err := commentRepo.Repo.Insert(comment)
+	if err != nil {
+		return response.ErrorResponse(ctx, res, baseErrCode, "02", errStr, 500)
+	}
+	commentResponse.CommentID = id
+	res.Res = commentResponse
+	return response.SuccessResponse(ctx, res)
 }
