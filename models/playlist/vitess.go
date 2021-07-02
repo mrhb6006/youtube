@@ -17,7 +17,7 @@ func (pg *postgres) Insert(playList PlayList) (insertedID int64, errStr string, 
 
 func (pg *postgres) GetByName(name string, creatorID int64) (playList PlayList, exist bool, errStr string, err error) {
 	playList = PlayList{}
-	err = pg.Conn.QueryRow("SELECT * FROM playlist WHERE name=$1 AND creatorID=$2", name, creatorID).Scan(
+	err = pg.Conn.QueryRow("SELECT * FROM playlist WHERE name=$1 AND creator_id=$2", name, creatorID).Scan(
 		&playList.ID,
 		&playList.Name,
 		&playList.IsDefault,
