@@ -23,9 +23,10 @@ func Write(ctx *fiber.Ctx) error {
 		Text:    strings.TrimSpace(request.Text),
 		ReplyID: request.ReplyID,
 		VideoID: request.VideoID,
+		UserID:  userID,
 	}
 	if request.ReplyID != 0 { // reply a comment
-		comment.UserID = userID
+		comment.ReplyID = request.ReplyID
 	}
 	id, errStr, err := commentRepo.Repo.Insert(comment)
 	if err != nil {

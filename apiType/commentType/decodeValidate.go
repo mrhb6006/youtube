@@ -18,7 +18,7 @@ func (r *WriteCommentRequest) DecodeValidate(ctx *fiber.Ctx) (errStr string, res
 		switch customError[0].StructField() + "," + customError[0].ActualTag() {
 		case "Text,required":
 			return "02", 400, err
-		case "ReplyID,gt":
+		case "ReplyID,gte":
 			return "03", 400, err
 		case "VideoID,gt":
 			return "04", 400, err
