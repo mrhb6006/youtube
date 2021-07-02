@@ -21,4 +21,5 @@ type Repository interface {
 	ChechExist(userID int64, videoID int64) (bool, string, error)
 	Insert(like LikeVideo) (string, error)
 	UpdateAction(like LikeVideo) (string, error)
+	GetVideoLikesCount(likeOrDislike int64, videoID int64) (int64, string, error)
 }
