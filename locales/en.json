@@ -18,5 +18,6 @@
   "1000402": "this email belong to another user",
   "0990301": "not found user with this username",
   "0990401": "wrong password",
-  "0810303": "comment not found"
+  "0810303": "comment not found",
+  "0720301": "this playlist already exist"
 }
