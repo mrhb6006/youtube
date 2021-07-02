@@ -10,6 +10,7 @@ import (
 	"time"
 	"youtube/apiType/commonType"
 	"youtube/apiType/userType"
+	"youtube/models/playlist"
 	"youtube/models/user"
 	"youtube/pkg/auth"
 	"youtube/pkg/response"
@@ -112,6 +113,14 @@ func Register(ctx *fiber.Ctx) error {
 	registerResponse.Token, err = auth.CreateToken(id)
 	if err != nil {
 		return response.ErrorResponse(ctx, res, baseErrCode, "07", errStr, 500)
+	}
+	_, errStr, err = playlist.Repo.Insert(playlist.PlayList{
+		Name:      "watch later",
+		IsDefault: true,
+		CreatorID: id,
+	})
+	if err != nil {
+		return response.ErrorResponse(ctx, res, baseErrCode, "08", errStr, 500)
 	}
 	res.Res = registerResponse
 	return response.SuccessResponse(ctx, res)
