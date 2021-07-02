@@ -43,3 +43,21 @@ func LikeDislikeComment(ctx *fiber.Ctx) error {
 	}
 	return response.SuccessResponse(ctx, res)
 }
+
+func CommentLikesCount(ctx *fiber.Ctx) error {
+	baseErrCode := "012"
+	request := likeCommentType.CommentLikeCountRequest{}
+	likeCountResponse := likeCommentType.CommentLikeCountResponse{}
+	res := commonType.Response{}
+	errStr, code, err := request.DecodeValidate(ctx)
+	if err != nil {
+		return response.ErrorResponse(ctx, res, baseErrCode, "01", errStr, code)
+	}
+	count, errStr, err := likeDislikeComment.Repo.GetLikesCount(request.Action, request.CommentID)
+	if err != nil {
+		return response.ErrorResponse(ctx, res, baseErrCode, "02", errStr, 500)
+	}
+	likeCountResponse.LikeCount = count
+	res.Res = likeCountResponse
+	return response.SuccessResponse(ctx, res)
+}
