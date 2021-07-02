@@ -52,4 +52,5 @@ func setUpRoute(app *fiber.App) {
 	playlist.Post("/create", CreatePlayList)
 	playlist.Post("/addVideo", AddVideoToPlayList)
 	playlist.Post("/makePublic", MakePublic)
+	playlist.Delete("/delete", DeletePlayList)
 }

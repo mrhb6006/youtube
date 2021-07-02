@@ -24,5 +24,8 @@
   "0730401": "you are not creator of this playlist",
   "0730601": "this video already exist in this play list",
   "0750301": "this playlist not found",
-  "0750401": "you are not creator of this playlist"
+  "0750401": "you are not creator of this playlist",
+  "0760301": "this playlist not found",
+  "0760401": "you are not creator of this playlist",
+  "0760501": "you cant delete default playlist"
 }

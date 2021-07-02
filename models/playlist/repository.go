@@ -22,4 +22,5 @@ type Repository interface {
 	GetByName(name string, creatorID int64) (PlayList, bool, string, error)
 	GetByID(playListID int64) (PlayList, bool, string, error)
 	MakePublic(playListID int64) (string, error)
+	Delete(playListID int64) (string, error)
 }
