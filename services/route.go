@@ -7,9 +7,10 @@ import (
 	. "youtube/services/channelUser"
 	. "youtube/services/channelVideo"
 	. "youtube/services/comment"
+	. "youtube/services/playlist"
+	. "youtube/services/search"
 	. "youtube/services/likeDislike"
 	. "youtube/services/seenVideo"
-	. "youtube/services/search"
 	. "youtube/services/user"
 	. "youtube/services/video"
 )
@@ -42,4 +43,7 @@ func setUpRoute(app *fiber.App) {
 	comment.Delete("/delete", DeleteComment)
 
 	youtube.Post("/search", Search)
+
+	playlist := youtube.Group("playlist")
+	playlist.Post("/create", CreatePlayList)
 }
