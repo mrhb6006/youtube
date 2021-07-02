@@ -19,5 +19,13 @@
   "0990301": "not found user with this username",
   "0990401": "wrong password",
   "0810303": "comment not found",
-  "0720301": "this playlist already exist"
+  "0720301": "this playlist already exist",
+  "0730301": "this playlist not found",
+  "0730401": "you are not creator of this playlist",
+  "0730601": "this video already exist in this play list",
+  "0750301": "this playlist not found",
+  "0750401": "you are not creator of this playlist",
+  "0760301": "this playlist not found",
+  "0760401": "you are not creator of this playlist",
+  "0760501": "you cant delete default playlist"
 }

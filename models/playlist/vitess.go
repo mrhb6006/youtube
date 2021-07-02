@@ -52,3 +52,21 @@ func (pg *postgres) GetByID(playListId int64) (playList PlayList, exist bool, er
 	}
 	return playList, true, "", nil
 }
+
+func (pg *postgres) MakePublic(playListID int64) (string, error) {
+	_, err := pg.Conn.Exec("update playlist set is_public=true where id=$1", playListID)
+	if err != nil {
+		zap.L().Error("MakePublic_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
+		return "01", err
+	}
+	return "", nil
+}
+
+func (pg *postgres) Delete(playListID int64) (string, error) {
+	_, err := pg.Conn.Exec("delete from playlist where id=$1", playListID)
+	if err != nil {
+		zap.L().Error("delete_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
+		return "01", err
+	}
+	return "", nil
+}
