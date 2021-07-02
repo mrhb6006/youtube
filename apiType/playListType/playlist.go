@@ -1,7 +1,7 @@
-package playList
+package playListType
 
-type CreatePlayList struct {
-	Name     string `json:"name"`
+type CreatePlayListRequest struct {
+	Name     string `json:"name" validate:"required"`
 	IsPublic bool   `json:"is_public"`
 }
 
