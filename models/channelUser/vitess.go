@@ -39,3 +39,13 @@ func (pg *postgres) Delete(channelUser ChannelUser) (string, error) {
 	}
 	return "", nil
 }
+
+func (pg *postgres) GetMembersCount(channelID int64) (int64, string, error) {
+	var count int64
+	err := pg.Conn.QueryRow("SELECT count(user_id) from user_channel where channel_id=$1", channelID).Scan(&count)
+	if err != nil {
+		zap.L().Error("update_like_video_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
+		return -1, "01", err
+	}
+	return count, "", nil
+}

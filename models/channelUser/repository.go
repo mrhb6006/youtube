@@ -21,4 +21,5 @@ type Repository interface {
 	Insert(channelUser ChannelUser) (string, error)
 	ExistenceCheck(channelUser ChannelUser) (bool, string, error)
 	Delete(channelUser ChannelUser) (string, error)
+	GetMembersCount(channelID int64) (int64, string, error)
 }
