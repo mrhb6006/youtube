@@ -54,3 +54,17 @@ func (pg *postgres) CreateChannel(channel Channel) (id int64, errStr string, err
 	}
 	return id, "", nil
 }
+
+func (pg *postgres) DeleteChannel(channelID int64) (errStr string, err error) {
+	_, err = pg.Conn.Exec("with video_channelCount as (select v.id as videoID, count(cv.channel_id) as channelCount from channel_video cv join video v on v.id = cv.video_id group by v.id)delete from video using video_channelCount,channel_video where video.id=video_channelCount.videoID and channel_video.video_id=video.id and video_channelCount.channelCount=1 and channel_video.channel_id=$1;", channelID)
+	if err != nil {
+		zap.L().Error("channel_delete_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
+		return "01", err
+	}
+	_, err = pg.Conn.Exec("delete from channel where id=$1;", channelID)
+	if err != nil {
+		zap.L().Error("channel_delete_2_err", zap.Any("error:", err), zap.Any("time :", time.Now().UnixNano()))
+		return "01", err
+	}
+	return "", nil
+}

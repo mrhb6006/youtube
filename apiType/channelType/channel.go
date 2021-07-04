@@ -9,3 +9,7 @@ type CreateChannelRequest struct {
 type CreateChannelResponse struct {
 	Id int64 `json:"id"`
 }
+
+type DeleteChannelRequest struct {
+	ChannelID int64 `json:"channel_id" validate:"gt=0,required"`
+}

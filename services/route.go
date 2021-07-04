@@ -29,6 +29,7 @@ func setUpRoute(app *fiber.App) {
 	channel.Post("/join", JoinToChannel)
 	channel.Delete("/leave", LeaveChannel)
 	channel.Post("/members/count", ChannelMembersCount)
+	channel.Delete("/delete", DeleteChannel)
 
 	user := youtube.Group("/user")
 	user.Post("/register", Register)

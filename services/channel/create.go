@@ -17,6 +17,7 @@ func Create(ctx *fiber.Ctx) error {
 	request := channelType.CreateChannelRequest{}
 	createChannelResponse := channelType.CreateChannelResponse{}
 	res := commonType.Response{}
+	userID := ctx.Locals("UserID").(int64)
 	errStr, code, err := request.DecodeValidate(ctx)
 	if err != nil {
 		return response.ErrorResponse(ctx, res, baseErrCode, "01", errStr, code)
@@ -38,8 +39,7 @@ func Create(ctx *fiber.Ctx) error {
 		Name:        request.Name,
 		Description: request.Description,
 		Avatar:      avatarPath,
-		CreatorID:   1,
-		//TODO handle CreatorID
+		CreatorID:   userID,
 	})
 
 	if err != nil {
