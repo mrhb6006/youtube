@@ -10,7 +10,7 @@ import (
 func Middleware() fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		path := string(ctx.Request().URI().RequestURI())
-		if strings.Contains(path, "register") || strings.Contains(path, "login") {
+		if strings.Contains(path, "register") || strings.Contains(path, "login") || strings.Contains(path, "avatar") || strings.Contains(path, "videos") {
 			return ctx.Next()
 		}
 		token := string(ctx.Request().Header.Peek("token"))

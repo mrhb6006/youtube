@@ -54,4 +54,8 @@ func setUpRoute(app *fiber.App) {
 	playlist.Post("/addVideo", AddVideoToPlayList)
 	playlist.Post("/makePublic", MakePublic)
 	playlist.Delete("/delete", DeletePlayList)
+
+	youtube.Static("/avatar", "./storage/images")
+	youtube.Static("/videos", "./storage/videos")
+
 }
