@@ -10,8 +10,7 @@ func SaveImage(base64Str, filename string) (string, error) {
 	err := deleteImageFile(filename)
 	img, _ := base64.StdEncoding.DecodeString(base64Str)
 	err = ioutil.WriteFile(".\\storage\\images\\"+filename+".png", img, 0666)
-	parent, _ := os.Getwd()
-	return parent + "\\storage\\images\\" + filename + ".png", err
+	return filename + ".png", err
 }
 func deleteImageFile(filename string) error {
 	path := ".\\storage\\images\\" + filename + ".png"
@@ -25,8 +24,7 @@ func SaveVideo(base64Str, filename string) (string, error) {
 	err := deleteVideoFile(filename)
 	video, _ := base64.StdEncoding.DecodeString(base64Str)
 	err = ioutil.WriteFile(".\\storage\\videos\\"+filename+".mp4", video, 0666)
-	parent, _ := os.Getwd()
-	return parent + "\\storage\\videos\\" + filename + ".mp4", err
+	return filename + ".mp4", err
 }
 func deleteVideoFile(filename string) error {
 	path := ".\\storage\\videos\\" + filename + ".mp4"
