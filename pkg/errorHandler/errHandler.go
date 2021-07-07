@@ -22,7 +22,7 @@ func DefaultErrHandler(ctx *fiber.Ctx, err error) error {
 	}
 	b, er := json.Marshal(comm)
 	if er != nil {
-		return ctx.Status(fiber.StatusInternalServerError).SendString(GetMessage(code))
+		return ctx.Status(fiber.StatusInternalServerError).SendString(GetMessage(code, ctx.Get("language", "en")))
 	}
 	return ctx.Send(b)
 }
@@ -34,6 +34,6 @@ func CreateError(ctx *fiber.Ctx, err string, code int) commonType.Error {
 	if code > 200 {
 		err = strconv.Itoa(code)
 	}
-	e["message"] = GetMessage(err)
+	e["message"] = GetMessage(err, ctx.Get("language", "en"))
 	return e
 }

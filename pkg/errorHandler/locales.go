@@ -7,10 +7,10 @@ import (
 	"path/filepath"
 )
 
-var Message map[string]string
+var statusMessage map[string]map[string]string
 
 func LoadLocale() error {
-	Message = make(map[string]string)
+	statusMessage = make(map[string]map[string]string)
 	dir := "./locales"
 	if _, err := os.Stat(dir); err != nil {
 		dir = "../../locales"
@@ -34,15 +34,15 @@ func LoadLocale() error {
 			if err != nil {
 				return err
 			}
-			Message = data
+			statusMessage[lang[0:len(lang)-5]] = data
 			return nil
 		})
 	return err
 }
 
-func GetMessage(code string) string {
-	if s, ok := Message[code]; ok {
-		return s
+func GetMessage(code, lang string) string {
+	if messages, ok := statusMessage[lang]; ok {
+		return messages[code]
 	}
 	return "unknown errCode: " + code
 }
