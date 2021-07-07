@@ -15,6 +15,8 @@ func (pg *postgres) Search(word, table string) ([]Search, string, error) {
 		playlistCondition = "AND is_public=true"
 	} else if table == "video" {
 		colName = "title"
+	} else if table == "commnet" {
+		colName = "text"
 	}
 	query := fmt.Sprintf("SELECT %s,id from %s where lower(%s) LIKE %s %s", colName, table, colName, likeCondition, playlistCondition)
 	rows, err := pg.Conn.Query(query)
